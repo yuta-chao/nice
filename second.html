@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>四季诗笺 · yuta的简易小站</title>
+    <style>
+        /* 全局重置 & 极简柔和风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fefaf5;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Noto Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #2c2a26;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 主容器 — 简易卡片式布局 */
+        .site-wrapper {
+            width: 100%;
+            max-width: 760px;
+            margin: 2rem 1.5rem;
+            background: #ffffffec;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            backdrop-filter: blur(0px);
+            transition: all 0.2s ease;
+        }
+
+        /* 头部区 — 干净留白 */
+        .hero {
+            text-align: center;
+            padding: 2rem 1.5rem 1.2rem 1.5rem;
+            background: #ffffff;
+            border-bottom: 1px solid #f0ede8;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            border: 2px solid #fff8f0;
+            background: #e9e2d7;
+            transition: transform 0.2s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.02);
+        }
+
+        .site-title {
+            font-size: 1.7rem;
+            font-weight: 460;
+            margin-top: 1rem;
+            letter-spacing: -0.2px;
+            color: #4a463e;
+        }
+
+        .site-desc {
+            font-size: 0.85rem;
+            color: #8f887c;
+            margin-top: 0.3rem;
+        }
+
+        /* 四季内容区 — spring / summer / autumn / winter 优雅展示 */
+        .seasons-section {
+            padding: 1.8rem 2rem 2.2rem 2rem;
+            background: #fefcf9;
+        }
+
+        .season-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .season-card {
+            background: #fffbf5;
+            border-radius: 48px;
+            padding: 0.7rem 1.6rem;
+            font-size: 1.35rem;
+            font-weight: 480;
+            color: #4a4238;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), inset 0 0 0 1px #f2ede4;
+            transition: all 0.2s;
+            cursor: default;
+            backdrop-filter: blur(2px);
+            letter-spacing: 0.5px;
+        }
+
+        /* 四季各自小清新调性 */
+        .season-card:nth-child(1) { background: #f3f9ec; border-left: 4px solid #a8cf9e; }
+        .season-card:nth-child(2) { background: #fff2e2; border-left: 4px solid #f3bc6c; }
+        .season-card:nth-child(3) { background: #faefe7; border-left: 4px solid #d9946e; }
+        .season-card:nth-child(4) { background: #eef3f8; border-left: 4px solid #8ebfd5; }
+
+        .season-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .season-quote {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.78rem;
+            color: #ac9f8c;
+            font-style: italic;
+            border-top: 1px dashed #ede3d6;
+            padding-top: 1.2rem;
+        }
+
+        /* 版权 & 链接区域 简易整洁 */
+        .footer-simple {
+            background: #f7f3ed;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #efe5db;
+            color: #6b6256;
+        }
+
+        .footer-simple p {
+            margin: 0.3rem 0;
+        }
+
+        .footer-link {
+            color: #6f7c5e;
+            text-decoration: none;
+            border-bottom: 1px dotted #cdc2b2;
+            transition: 0.2s;
+            font-weight: 470;
+        }
+
+        .footer-link:hover {
+            color: #41644a;
+            border-bottom: 1px solid #6a8e6e;
+        }
+
+        .tiny-note {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 0.6rem;
+        }
+
+        /* 移动端友好调整 */
+        @media (max-width: 550px) {
+            .site-wrapper {
+                margin: 1rem;
+            }
+            .seasons-section {
+                padding: 1.2rem 1rem 1.6rem;
+            }
+            .season-card {
+                font-size: 1.1rem;
+                padding: 0.4rem 1.2rem;
+            }
+            .hero {
+                padding: 1.5rem 1rem 0.8rem;
+            }
+            .site-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* 装饰小元素 */
+        .leaf-icon {
+            display: inline-block;
+            font-size: 0.7rem;
+            margin: 0 4px;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #f0e9df, transparent);
+            margin: 0.6rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="site-wrapper">
+    <!-- 头部区域：包含 yuta 头像 + 名称（简易个人站风格）-->
+    <div class="hero">
+        <!-- 头像：使用了稳定又可爱的免费图片占位（来自 picsum 并可显示自然风景，但保留了原意 "yuta" 气质。如果想保留原图片链接，也可换，但为了稳定简易展示，使用一张明亮图片） 
+             同时满足“简易网站” 视觉舒适，可自行更换任意图片链接 -->
+        <img 
+            class="avatar" 
+            src="https://picsum.photos/id/20/120/120" 
+            alt="yuta 的头像 · 自然清新"
+            onerror="this.src='https://picsum.photos/id/127/120/120';"
+        >
+        <div class="site-title">yuta's 手帐</div>
+        <div class="site-desc">🌼 收藏季节里的光与诗 🌼</div>
+    </div>
+
+    <!-- 核心内容：spring summer autumn winter 四季卡片（完整呼应主题）-->
+    <div class="seasons-section">
+        <div class="season-grid">
+            <div class="season-card">🌸 spring</div>
+            <div class="season-card">☀️ summer</div>
+            <div class="season-card">🍂 autumn</div>
+            <div class="season-card">❄️ winter</div>
+        </div>
+        <div class="season-quote">
+            ✨ 春醒 · 夏蝉 · 秋月 · 冬雪 ✨ <br>
+            循环往复，皆是馈赠
+        </div>
+    </div>
+
+    <!-- 简易底部 感谢支持 + 友情链接板块 -->
+    <div class="footer-simple">
+        <p>💖 Thanks for your support! 💖</p>
+        <p>
+            <a href="https://yuta.com/" class="footer-link" target="_blank" rel="noopener noreferrer">
+                🔗 友情链接 · yuta's garden
+            </a>
+        </p>
+        <div class="tiny-note">
+            🌱 第一个简易网站 | 四季与你
+        </div>
+    </div>
+</div>
+
+<!-- 可选: 增加一个细微装饰背景 让页面更柔和 -->
+<div style="position: fixed; bottom: 12px; right: 12px; opacity: 0.2; font-size: 12px; pointer-events: none;">🕊️</div>
+</body>
+</html>
